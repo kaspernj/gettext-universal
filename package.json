@@ -1,0 +1,31 @@
+{
+  "bin": {
+    "gettext-universal": "bin/gettext-universal.mjs"
+  },
+  "name": "gettext-universal",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "execute": "node bin/gettext-universal.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaspernj/gettext-universal.git"
+  },
+  "keywords": [
+    "gettext",
+    "poedit",
+    "scan"
+  ],
+  "author": "kasper@diestoeckels.de",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaspernj/gettext-universal/issues"
+  },
+  "homepage": "https://github.com/kaspernj/gettext-universal#readme",
+  "description": "",
+  "dependencies": {
+    "diggerize": "^1.0.5"
+  }
+}
