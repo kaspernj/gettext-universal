@@ -1,4 +1,3 @@
-import {digg} from "diggerize"
 import {promises as fs} from "fs"
 import path from "path"
 
@@ -114,10 +113,6 @@ export default class Scanner {
       fullPath,
       localPath,
     })
-  }
-
-  async scanFileInDir({file, localPath, pathParts, pathToScan}) {
-
   }
 
   async writeOutput() {

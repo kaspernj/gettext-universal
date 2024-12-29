@@ -6,7 +6,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "execute": "node bin/gettext-universal.mjs",
+    "gettext-universal": "node bin/gettext-universal.mjs",
+    "po2mjs": "node bin/po2mjs.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
