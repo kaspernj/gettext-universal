@@ -3,7 +3,7 @@
     "gettext-universal": "bin/gettext-universal.mjs"
   },
   "name": "gettext-universal",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "scripts": {
     "gettext-universal": "node bin/gettext-universal.mjs",
@@ -28,5 +28,8 @@
   "description": "",
   "dependencies": {
     "diggerize": "^1.0.5"
+  },
+  "peerDependencies": {
+    "expo-localization": "*"
   }
 }
