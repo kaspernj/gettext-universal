@@ -1,0 +1,9 @@
+#: app/(tabs)/index.tsx:51
+#: app/sign-in.jsx:27
+msgid "Sign in"
+msgstr ""
+
+#: app/(tabs)/index.tsx:61
+#: app/sign-up.jsx:27
+msgid "Sign up"
+msgstr ""
