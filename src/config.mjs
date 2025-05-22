@@ -19,10 +19,15 @@ class Config {
   }
 
   getFallbacks = () => this.fallbacks
+  getLocale = () => this.locale
   getLocales = () => this.locales
 
   setFallbacks(fallbacks) {
     this.fallbacks = fallbacks
+  }
+
+  setLocale(locale) {
+    this.locale = locale
   }
 }
 
