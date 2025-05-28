@@ -1,14 +1,15 @@
 {
   "bin": {
-    "gettext-universal": "bin/gettext-universal.mjs"
+    "gettext-universal": "bin/gettext-universal.js"
   },
   "name": "gettext-universal",
+  "type": "module",
   "version": "1.0.2",
   "main": "index.js",
   "scripts": {
-    "gettext-universal": "node bin/gettext-universal.mjs",
-    "po2mjs": "node bin/po2mjs.mjs",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "gettext-universal": "node bin/gettext-universal.js",
+    "po2mjs": "node bin/po2mjs.js",
+    "test": "jasmine"
   },
   "repository": {
     "type": "git",
@@ -31,5 +32,8 @@
   },
   "peerDependencies": {
     "expo-localization": "*"
+  },
+  "devDependencies": {
+    "jasmine": "^5.7.1"
   }
 }

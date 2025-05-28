@@ -1,4 +1,4 @@
-import translate from "./translate.mjs"
+import translate from "./translate.js"
 import {useCallback} from "react"
 import {useLocales} from "expo-localization"
 
