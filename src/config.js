@@ -5,7 +5,7 @@ class Config {
 
   loadTranslationsFromRequireContext(requireContext) {
     for (const localeFile of requireContext.keys()) {
-      const match = localeFile.match(/^\.\/([a-z]{2}).mjs$/)
+      const match = localeFile.match(/^\.\/([a-z]{2}).js$/)
 
       if (!match) {
         throw new Error(`Couldn't detect locale from file: ${localeFile}`)

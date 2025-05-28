@@ -21,7 +21,7 @@ export default class Po2Mjs {
   async readFile(file, ext) {
     const fullPath = `${this.directory}/${file}`
     const baseName = path.basename(file, ext)
-    const jsFilePath = `${this.directory}/${baseName}.mjs`
+    const jsFilePath = `${this.directory}/${baseName}.js`
     const fileContentBuffer = await fs.readFile(fullPath)
     const fileContent = fileContentBuffer.toString()
     const matches = fileContent.matchAll(/#: (.+?)\nmsgid \"(.+?)\"\nmsgstr \"(.+?)\"\n(\n|$)/g)

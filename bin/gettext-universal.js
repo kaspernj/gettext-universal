@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import Scanner from "../src/scanner.mjs"
+import Scanner from "../src/scanner.js"
 
 const processArgs = process.argv.slice(2)
 const extensions = []
