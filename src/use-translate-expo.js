@@ -10,7 +10,11 @@ const useTranslateExpo = () => {
     preferredLocales = locales?.map((localeData) => localeData.languageCode)
   }
 
-  const currentTranslation = useCallback((msgId) => translate(msgId, preferredLocales), [preferredLocales])
+  const currentTranslation = useCallback((msgId, args = {}) => {
+    args.locales = preferredLocales
+
+    return translate(msgId, args)
+  }, [preferredLocales])
 
   return currentTranslation
 }

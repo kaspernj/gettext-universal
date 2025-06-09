@@ -1,6 +1,15 @@
 import config from "./config.js"
 
-const translate = (msgId, preferredLocales) => {
+const translate = (msgId, args) => {
+  let preferredLocales
+
+  if (Array.isArray(args)) {
+    preferredLocales = args
+    args = null
+  } else if (args?.locales) {
+    preferredLocales = args.locales
+  }
+
   if (!preferredLocales) {
     if (config.getLocale()) {
       preferredLocales = [config.getLocale()]
@@ -41,7 +50,13 @@ const translate = (msgId, preferredLocales) => {
     }
   }
 
-  if (!translation) translation = msgId
+  if (!translation) {
+    if (args?.defaultValue) {
+      translation = args.defaultValue
+    } else {
+      translation = msgId
+    }
+  }
 
   return translation
 }
