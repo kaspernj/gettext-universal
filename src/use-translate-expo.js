@@ -7,6 +7,10 @@ import {useLocales} from "expo-localization"
 const eventEmitter = new EventEmitter()
 const TranslateContext = createContext()
 
+const setLocale = (locale) => {
+  eventEmitter.emit("changeLocale", {locale})
+}
+
 const WithTranslate = ({children, ...restProps}) => {
   const restPropsKeys = Object.keys(restProps)
 
@@ -33,8 +37,6 @@ const WithTranslate = ({children, ...restProps}) => {
   const contextData = useMemo(() => ({locales: actualLocales}), [actualLocales])
 
   const onChangeLocale = useCallback(({locale}) => {
-    console.log("onChangeLocale", args)
-
     setLocale(locale)
   }, [])
 
@@ -64,5 +66,5 @@ const useTranslateExpo = () => {
   return currentTranslation
 }
 
-export {WithTranslate}
+export {setLocale, WithTranslate}
 export default useTranslateExpo

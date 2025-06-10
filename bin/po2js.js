@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import Po2Mjs from "../src/po2mjs.js"
+import Po2Js from "../src/po2js.js"
 
 const processArgs = process.argv.slice(2)
 let directory
@@ -15,6 +15,6 @@ for (let i = 0; i < processArgs.length; i++) {
   }
 }
 
-const po2Mjs = new Po2Mjs({directory})
+const po2Js = new Po2Js({directory})
 
-await po2Mjs.run()
+await po2Js.run()

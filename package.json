@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "gettext-universal": "node bin/gettext-universal.js",
-    "po2mjs": "node bin/po2mjs.js",
+    "po2js": "node bin/po2js.js",
     "test": "jasmine"
   },
   "repository": {
