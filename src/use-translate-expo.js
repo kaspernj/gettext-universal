@@ -1,25 +1,26 @@
+import {digg} from "diggerize"
 import EventEmitter from "events"
 import translate from "./translate.js"
-import {createContext, useCallback, useMemo, useState} from "react"
+import {createContext, useCallback, useContext, useMemo, useState} from "react"
 import useEventEmitter from "@kaspernj/api-maker/build/use-event-emitter"
 import {useLocales} from "expo-localization"
 
 const eventEmitter = new EventEmitter()
 const TranslateContext = createContext()
 
+const shared = {
+  locale: null
+}
+
 const setLocale = (locale) => {
+  shared.locale = locale
   eventEmitter.emit("changeLocale", {locale})
 }
 
 const WithTranslate = ({children, ...restProps}) => {
-  const restPropsKeys = Object.keys(restProps)
-
-  if (restPropsKeys.length > 0) {
-    throw new Error(`Unknown props given: ${restPropsKeys.join(", ")}`)
-  }
-
   const locales = useLocales()
-  const [locale, setLocale] = useState()
+  const [locale, setLocale] = useState(digg(shared, "locale"))
+
   const actualLocales = useMemo(() => {
     const actualLocales = []
 
@@ -34,13 +35,19 @@ const WithTranslate = ({children, ...restProps}) => {
     return actualLocales
   }, [locale, locales])
 
-  const contextData = useMemo(() => ({locales: actualLocales}), [actualLocales])
+  const contextData = useMemo(() => ({locale, locales: actualLocales}), [actualLocales])
 
   const onChangeLocale = useCallback(({locale}) => {
     setLocale(locale)
   }, [])
 
   useEventEmitter(eventEmitter, "changeLocale", onChangeLocale)
+
+  const restPropsKeys = Object.keys(restProps)
+
+  if (restPropsKeys.length > 0) {
+    throw new Error(`Unknown props given: ${restPropsKeys.join(", ")}`)
+  }
 
   return (
     <TranslateContext.Provider value={contextData}>
@@ -50,12 +57,24 @@ const WithTranslate = ({children, ...restProps}) => {
 }
 
 const useTranslateExpo = () => {
+  const localeContext = useContext(TranslateContext)
   const locales = useLocales()
-  let preferredLocales
 
-  if (Array.isArray(locales)) {
-    preferredLocales = locales?.map((localeData) => localeData.languageCode)
-  }
+  const preferredLocales = useMemo(() => {
+    let preferredLocales = []
+
+    if (localeContext?.locale) {
+      preferredLocales.push(localeContext.locale)
+    }
+
+    if (Array.isArray(locales)) {
+      for (const localeData of locales) {
+        preferredLocales.push(localeData.languageCode)
+      }
+    }
+
+    return preferredLocales
+  }, [localeContext?.locale, locales])
 
   const currentTranslation = useCallback((msgId, args = {}) => {
     args.locales = preferredLocales

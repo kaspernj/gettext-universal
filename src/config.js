@@ -14,7 +14,7 @@ class Config {
       const locale = match[1]
       const translations = requireContext(localeFile).default
 
-      locales[locale] = translations
+      this.locales[locale] = translations
     }
   }
 
