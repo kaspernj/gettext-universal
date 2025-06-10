@@ -1,7 +1,7 @@
 import {promises as fs} from "fs"
 import path from "path"
 
-export default class Po2Mjs {
+export default class Po2Js {
   constructor({directory}) {
     this.directory = directory
   }
