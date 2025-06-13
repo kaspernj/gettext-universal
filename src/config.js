@@ -1,3 +1,5 @@
+import events from "./events.js"
+
 class Config {
   constructor() {
     this.locales = {}
@@ -28,6 +30,7 @@ class Config {
 
   setLocale(locale) {
     this.locale = locale
+    events.emit("onLocaleChange", {locale})
   }
 }
 

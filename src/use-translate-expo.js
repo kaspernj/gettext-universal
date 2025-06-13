@@ -1,25 +1,15 @@
-import {digg} from "diggerize"
-import EventEmitter from "events"
+import config from "./config.js"
+import events from "./events.js"
 import translate from "./translate.js"
 import {createContext, useCallback, useContext, useMemo, useState} from "react"
 import useEventEmitter from "@kaspernj/api-maker/build/use-event-emitter"
 import {useLocales} from "expo-localization"
 
-const eventEmitter = new EventEmitter()
 const TranslateContext = createContext()
-
-const shared = {
-  locale: null
-}
-
-const setLocale = (locale) => {
-  shared.locale = locale
-  eventEmitter.emit("changeLocale", {locale})
-}
 
 const WithTranslate = ({children, ...restProps}) => {
   const locales = useLocales()
-  const [locale, setLocale] = useState(digg(shared, "locale"))
+  const [locale, setLocale] = useState(config.getLocale())
 
   const actualLocales = useMemo(() => {
     const actualLocales = []
@@ -41,7 +31,7 @@ const WithTranslate = ({children, ...restProps}) => {
     setLocale(locale)
   }, [])
 
-  useEventEmitter(eventEmitter, "changeLocale", onChangeLocale)
+  useEventEmitter(events, "onLocaleChange", onChangeLocale)
 
   const restPropsKeys = Object.keys(restProps)
 
@@ -85,5 +75,5 @@ const useTranslateExpo = () => {
   return currentTranslation
 }
 
-export {setLocale, WithTranslate}
+export {WithTranslate}
 export default useTranslateExpo
