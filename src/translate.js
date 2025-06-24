@@ -1,6 +1,6 @@
 import config from "./config.js"
 
-const translate = (msgId, args) => {
+const translate = (msgId, variables, args) => {
   let preferredLocales
 
   if (Array.isArray(args)) {
@@ -22,7 +22,7 @@ const translate = (msgId, args) => {
 
   let translation
 
-  for (preferredLocale of preferredLocales) {
+  for (const preferredLocale of preferredLocales) {
     const localeTranslations = config.getLocales()[preferredLocale]
 
     if (!localeTranslations) continue
@@ -36,16 +36,20 @@ const translate = (msgId, args) => {
   }
 
   if (!translation) {
-    for (const fallback of config.getFallbacks()) {
-      const localeTranslations = config.getLocales()[fallback]
+    const fallbacks = config.getFallbacks()
 
-      if (!localeTranslations) continue
+    if (fallbacks) {
+      for (const fallback of config.getFallbacks()) {
+        const localeTranslations = config.getLocales()[fallback]
 
-      const localeTranslation = localeTranslations[msgId]
+        if (!localeTranslations) continue
 
-      if (localeTranslation) {
-        translation = localeTranslation
-        break
+        const localeTranslation = localeTranslations[msgId]
+
+        if (localeTranslation) {
+          translation = localeTranslation
+          break
+        }
       }
     }
   }
@@ -55,6 +59,15 @@ const translate = (msgId, args) => {
       translation = args.defaultValue
     } else {
       translation = msgId
+    }
+  }
+
+  if (variables) {
+    for (const key in variables) {
+      const value = variables[key]
+      const replaceKey = `%{${key}}`
+
+      translation = translation.replaceAll(replaceKey, value)
     }
   }
 
