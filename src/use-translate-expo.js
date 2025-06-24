@@ -66,10 +66,10 @@ const useTranslateExpo = () => {
     return preferredLocales
   }, [localeContext?.locale, locales])
 
-  const currentTranslation = useCallback((msgId, args = {}) => {
-    args.locales = preferredLocales
+  const currentTranslation = useCallback((msgId, variables, args = {}) => {
+    args.locales ||= preferredLocales
 
-    return translate(msgId, args)
+    return translate(msgId, variables, args)
   }, [preferredLocales])
 
   return currentTranslation
