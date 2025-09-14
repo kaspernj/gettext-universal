@@ -15,23 +15,23 @@ const translate = (msgId, variables, args) => {
       preferredLocales = [config.getLocale()]
     } else {
       console.error("No 'preferredLocales' was given and a locale wasn't set in the configuration either")
-
-      return msgId
     }
   }
 
   let translation
 
-  for (const preferredLocale of preferredLocales) {
-    const localeTranslations = config.getLocales()[preferredLocale]
+  if (preferredLocales) {
+    for (const preferredLocale of preferredLocales) {
+      const localeTranslations = config.getLocales()[preferredLocale]
 
-    if (!localeTranslations) continue
+      if (!localeTranslations) continue
 
-    const localeTranslation = localeTranslations[msgId]
+      const localeTranslation = localeTranslations[msgId]
 
-    if (localeTranslation) {
-      translation = localeTranslation
-      break
+      if (localeTranslation) {
+        translation = localeTranslation
+        break
+      }
     }
   }
 
