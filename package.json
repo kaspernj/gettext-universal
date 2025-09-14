@@ -4,7 +4,7 @@
   },
   "name": "gettext-universal",
   "type": "module",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "index.js",
   "scripts": {
     "gettext-universal": "node bin/gettext-universal.js",
