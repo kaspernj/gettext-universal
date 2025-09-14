@@ -30,9 +30,6 @@
   "dependencies": {
     "diggerize": "^1.0.5"
   },
-  "peerDependencies": {
-    "expo-localization": "*"
-  },
   "devDependencies": {
     "jasmine": "^5.7.1"
   }

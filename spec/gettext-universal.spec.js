@@ -25,4 +25,17 @@ describe("gettext-universal", () => {
 
     expect(result).toEqual("Hello Kasper")
   })
+
+  it("replaces placeholders with variables in defaults", () => {
+    config.setLocale(null)
+    config.locales = {
+      "en": {
+        "Hello world": "Hello world"
+      }
+    }
+
+    const result = translate("Hello %{name}", {name: "Kasper"})
+
+    expect(result).toEqual("Hello Kasper")
+  })
 })
