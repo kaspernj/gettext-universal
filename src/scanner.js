@@ -120,6 +120,11 @@ export default class Scanner {
 
     let translationsCount = 0
 
+    await fp.write("msgid \"\"\n")
+    await fp.write("msgstr \"\"\n")
+    await fp.write("\"Content-Type: text/plain; charset=UTF-8\\n\"\n")
+    await fp.write("\n") // Empty line after header
+
     for (const translationKey in this.translations) {
       const translation = this.translations[translationKey]
 
