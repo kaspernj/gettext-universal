@@ -9,10 +9,11 @@
   "types": "build/index.d.ts",
   "files": ["build/**"],
   "scripts": {
-    "build": "rm -rf build && tsc && chmod +x build/bin/gettext-universal.js && chmod +x build/bin/po2js.js",
+    "build": "rm -rf build && tsc && npm run chmod-executables",
+    "chmod-executables": "chmod +x build/bin/gettext-universal.js && chmod +x build/bin/po2js.js",
     "gettext-universal": "node bin/gettext-universal.js",
     "po2js": "node bin/po2js.js",
-    "prepublishOnly": "npm run build && chmod +x build/bin/velocious.js",
+    "prepublishOnly": "npm run build",
     "test": "jasmine",
     "typecheck": "tsc --noEmit",
     "watch": "tsc -w"
