@@ -3,7 +3,14 @@ import TranslateContext from "./translate-context.js"
 import {useCallback, useContext, useMemo} from "react"
 import {useLocales} from "expo-localization"
 
-const useTranslateExpo = () => {
+/**
+ * @typedef {(msgId: string, variables: Record<string, any>, args: import("./translate.js").TranslateArgs) => string} TranslateFunctionType
+ */
+
+/**
+ * @returns {TranslateFunctionType}
+ */
+function useTranslateExpo() {
   const localeContext = useContext(TranslateContext)
   const locales = useLocales()
 
@@ -23,11 +30,11 @@ const useTranslateExpo = () => {
     return preferredLocales
   }, [localeContext?.locale, locales])
 
-  const currentTranslation = useCallback((msgId, variables, args = {}) => {
+  const currentTranslation = useCallback(/** @type {TranslateFunctionType} */ ((msgId, variables, args = {}) => {
     args.locales ||= preferredLocales
 
     return translate(msgId, variables, args)
-  }, [preferredLocales])
+  }), [preferredLocales])
 
   return currentTranslation
 }
