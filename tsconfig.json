@@ -4,12 +4,13 @@
     "checkJs": true,
     "declaration": true,
     "declarationMap": true,
+    "inlineSourceMap": true,
+    "inlineSources": true,
     "jsx": "react-jsx",
     "outDir": "build",
     "target": "ES2024",
     "moduleResolution": "nodenext",
-    "module": "nodenext",
-    "sourceMap": true
+    "module": "nodenext"
   },
   "include": ["index.js", "bin/**/*", "src/**/*"]
 }
