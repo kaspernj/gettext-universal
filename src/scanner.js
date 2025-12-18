@@ -2,6 +2,14 @@ import {promises as fs} from "fs"
 import path from "path"
 
 export default class Scanner {
+  /**
+   * @param {object} args
+   * @param {string} args.directory
+   * @param {string[]} args.extensions
+   * @param {string[]} args.files
+   * @param {string[]} args.ignores
+   * @param {string} args.output
+   */
   constructor({directory, extensions, files, ignores, output, ...restArgs}) {
     if (Object.keys(restArgs).length > 0) throw new Error(`Unknown arrguments: ${Object.keys(restArgs).join(", ")}`)
 
@@ -10,7 +18,11 @@ export default class Scanner {
     this.files = files
     this.ignores = ignores
     this.output = output
+
+    /** @type {Array<{fullPath: string, localPath: string}>} */
     this.scannedFiles = []
+
+    /** @type {Record<string, {files: Array<{localPath: string, lineNumber: number}>}>} */
     this.translations = {}
   }
 
@@ -65,7 +77,7 @@ export default class Scanner {
       if (match) {
         const translationKey = match[2] || match[3]
 
-        if (!translationKey) throw new Error("Empty translation key from match", {match})
+        if (!translationKey) throw new Error(`Empty translation key from match: ${JSON.stringify(match)}`)
 
         if (!(translationKey in this.translations)) {
           this.translations[translationKey] = {
@@ -108,6 +120,11 @@ export default class Scanner {
     }
   }
 
+  /**
+   * @param {object} args
+   * @param {string} args.fullPath
+   * @param {string} args.localPath
+   */
   addScannedFile({fullPath, localPath}) {
     this.scannedFiles.push({
       fullPath,
