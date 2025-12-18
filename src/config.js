@@ -1,7 +1,10 @@
+// @ts-check
+
 import events from "./events.js"
 
 class Config {
   constructor() {
+    /** @type {Record<string, Record<string, any>>} */
     this.locales = {}
   }
 
@@ -20,14 +23,22 @@ class Config {
     }
   }
 
-  getFallbacks = () => this.fallbacks
-  getLocale = () => this.locale
-  getLocales = () => this.locales
+  getFallbacks() { return this.fallbacks }
+  getLocale() { return this.locale }
+  getLocales() { return this.locales }
 
+  /**
+   * @param {string[]} fallbacks
+   * @returns {void}
+   */
   setFallbacks(fallbacks) {
     this.fallbacks = fallbacks
   }
 
+  /**
+   * @param {string} locale
+   * @returns {void}
+   */
   setLocale(locale) {
     this.locale = locale
     events.emit("onLocaleChange", {locale})

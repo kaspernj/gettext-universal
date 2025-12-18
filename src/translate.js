@@ -1,13 +1,30 @@
+// @ts-check
+
 import config from "./config.js"
 
-const translate = (msgId, variables, args) => {
+/**
+ * @typedef {object} TranslateArgs
+ * @property {string} [defaultValue]
+ * @property {string[]} [locales]
+ */
+
+/**
+ * @param {string} msgId
+ * @param {Record<string, any>} [variables]
+ * @param {TranslateArgs | string[]} [argsCandidate] preferredLocales or arguments
+ */
+export default function translate(msgId, variables, argsCandidate) {
+  let args
   let preferredLocales
 
-  if (Array.isArray(args)) {
-    preferredLocales = args
-    args = null
-  } else if (args?.locales) {
-    preferredLocales = args.locales
+  if (Array.isArray(argsCandidate)) {
+    preferredLocales = argsCandidate
+  } else if (typeof args == "object") {
+    args = argsCandidate
+
+    if (args.locales) {
+      preferredLocales = args.locales
+    }
   }
 
   if (!preferredLocales) {
@@ -73,5 +90,3 @@ const translate = (msgId, variables, args) => {
 
   return translation
 }
-
-export default translate

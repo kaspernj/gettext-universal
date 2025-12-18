@@ -1,7 +1,13 @@
+// @ts-check
+
 import {promises as fs} from "fs"
 import path from "path"
 
 export default class Po2Js {
+  /**
+   * @param {object} args
+   * @param {string} args.directory
+   */
   constructor({directory}) {
     this.directory = directory
   }
@@ -18,6 +24,10 @@ export default class Po2Js {
     }
   }
 
+  /**
+   * @param {string} file
+   * @param {string} ext
+   */
   async readFile(file, ext) {
     const fullPath = `${this.directory}/${file}`
     const baseName = path.basename(file, ext)
