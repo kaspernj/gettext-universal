@@ -7,7 +7,9 @@
   "version": "1.0.18",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "files": ["build/**"],
+  "files": [
+    "build/**"
+  ],
   "scripts": {
     "build": "rm -rf build && tsc && npm run chmod-executables",
     "chmod-executables": "chmod +x build/bin/gettext-universal.js && chmod +x build/bin/po2js.js",
@@ -35,7 +37,8 @@
   "homepage": "https://github.com/kaspernj/gettext-universal#readme",
   "description": "",
   "dependencies": {
-    "diggerize": "^1.0.5"
+    "diggerize": "^1.0.5",
+    "eventemitter3": "^5.0.1"
   },
   "devDependencies": {
     "jasmine": "^5.7.1",
