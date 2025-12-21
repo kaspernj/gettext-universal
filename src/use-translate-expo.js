@@ -4,13 +4,11 @@ import {useCallback, useContext, useMemo} from "react"
 import {useLocales} from "expo-localization"
 
 /**
- * @typedef {(msgId: string, variables: Record<string, any>, args: import("./translate.js").TranslateArgs) => string} TranslateFunctionType
+ * @typedef {(msgId: string, variables?: Record<string, any>, args?: import("./translate.js").TranslateArgs) => string} TranslateFunctionType
  */
 
-/**
- * @returns {TranslateFunctionType}
- */
-function useTranslateExpo() {
+/** @returns {TranslateFunctionType} */
+export default function useTranslateExpo() {
   const localeContext = useContext(TranslateContext)
   const locales = useLocales()
 
@@ -38,5 +36,3 @@ function useTranslateExpo() {
 
   return currentTranslation
 }
-
-export default useTranslateExpo
