@@ -1,0 +1,1 @@
+- Remove `@kaspernj/api-maker` from `peerDependencies`.
