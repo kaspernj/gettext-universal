@@ -29,7 +29,6 @@ const WithTranslate = ({children, ...restProps}) => {
     setLocale(locale)
   }, [])
 
-  // @ts-expect-error
   useEventEmitter(events, "onLocaleChange", onChangeLocale)
 
   const restPropsKeys = Object.keys(restProps)
