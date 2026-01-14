@@ -38,14 +38,14 @@
   "description": "",
   "dependencies": {
     "diggerize": "^1.0.5",
-    "eventemitter3": "^5.0.1"
+    "eventemitter3": "^5.0.1",
+    "ya-use-event-emitter": "^0.1.2"
   },
   "devDependencies": {
     "jasmine": "^5.7.1",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
-    "@kaspernj/api-maker": "*",
     "expo-localization": "*",
     "react": "*"
   }

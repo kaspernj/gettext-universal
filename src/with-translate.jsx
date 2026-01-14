@@ -2,7 +2,7 @@ import config from "./config.js"
 import events from "./events.js"
 import {useCallback, useMemo, useState} from "react"
 import TranslateContext from "./translate-context.js"
-import useEventEmitter from "@kaspernj/api-maker/build/use-event-emitter.js"
+import useEventEmitter from "ya-use-event-emitter"
 import {useLocales} from "expo-localization"
 
 const WithTranslate = ({children, ...restProps}) => {
