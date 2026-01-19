@@ -42,7 +42,7 @@
     "ya-use-event-emitter": "^0.1.2"
   },
   "devDependencies": {
-    "jasmine": "^5.7.1",
+    "jasmine": "^6.0.0",
     "typescript": "^5.9.3"
   },
   "peerDependencies": {
