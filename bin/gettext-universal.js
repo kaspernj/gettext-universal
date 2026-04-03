@@ -36,6 +36,6 @@ if (extensions.length == 0) {
   extensions.push(".js", ".cjs", ".mjs", ".jsx", ".tsx")
 }
 
-const scanner = new Scanner({directory, extensions, files, ignores, output})
+const scanner = new Scanner({directory: /** @type {string} */ (directory), extensions, files, ignores, output: /** @type {string} */ (output)})
 
 await scanner.scan()

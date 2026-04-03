@@ -35,6 +35,7 @@ export default class Po2Js {
     const fileContentBuffer = await fs.readFile(fullPath)
     const fileContent = fileContentBuffer.toString()
     const matches = fileContent.matchAll(/#: (.+?)\nmsgid \"(.+?)\"\nmsgstr \"(.+?)\"\n(\n|$)/g)
+    /** @type {Record<string, string>} */
     const translations = {}
 
     for (const match of matches) {

@@ -15,6 +15,6 @@ for (let i = 0; i < processArgs.length; i++) {
   }
 }
 
-const po2Js = new Po2Js({directory})
+const po2Js = new Po2Js({directory: /** @type {string} */ (directory)})
 
 await po2Js.run()

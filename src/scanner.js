@@ -63,6 +63,9 @@ export default class Scanner {
     await Promise.all(promises)
   }
 
+  /**
+   * @param {{localPath: string, fullPath: string}} fileData
+   */
   async scanFile({localPath, fullPath}) {
     if (!fullPath) throw new Error(`Invalid fullPath given: ${fullPath}`)
 
@@ -90,6 +93,10 @@ export default class Scanner {
     }
   }
 
+  /**
+   * @param {string} pathToScan
+   * @param {string[]} pathParts
+   */
   async scanDir(pathToScan, pathParts) {
     const files = await fs.readdir(pathToScan)
     const localPath = pathParts.join("/")
