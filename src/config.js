@@ -8,6 +8,7 @@ class Config {
     this.locales = {}
   }
 
+  /** @param {{keys: () => string[], (key: string): {default: Record<string, any>}}} requireContext */
   loadTranslationsFromRequireContext(requireContext) {
     for (const localeFile of requireContext.keys()) {
       const match = localeFile.match(/([a-z]{2}).js$/)

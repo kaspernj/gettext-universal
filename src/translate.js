@@ -19,7 +19,7 @@ export default function translate(msgId, variables, argsCandidate) {
 
   if (Array.isArray(argsCandidate)) {
     preferredLocales = argsCandidate
-  } else if (typeof args == "object") {
+  } else if (typeof argsCandidate == "object") {
     args = argsCandidate
 
     if (args.locales) {
@@ -28,8 +28,10 @@ export default function translate(msgId, variables, argsCandidate) {
   }
 
   if (!preferredLocales) {
-    if (config.getLocale()) {
-      preferredLocales = [config.getLocale()]
+    const currentLocale = config.getLocale()
+
+    if (currentLocale) {
+      preferredLocales = [currentLocale]
     } else {
       console.error("No 'preferredLocales' was given and a locale wasn't set in the configuration either")
     }
@@ -56,7 +58,7 @@ export default function translate(msgId, variables, argsCandidate) {
     const fallbacks = config.getFallbacks()
 
     if (fallbacks) {
-      for (const fallback of config.getFallbacks()) {
+      for (const fallback of fallbacks) {
         const localeTranslations = config.getLocales()[fallback]
 
         if (!localeTranslations) continue

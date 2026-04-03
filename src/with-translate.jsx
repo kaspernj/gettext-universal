@@ -5,6 +5,7 @@ import TranslateContext from "./translate-context.js"
 import useEventEmitter from "ya-use-event-emitter"
 import {useLocales} from "expo-localization"
 
+/** @param {{children: any, [key: string]: any}} props */
 const WithTranslate = ({children, ...restProps}) => {
   const locales = useLocales()
   const [locale, setLocale] = useState(config.getLocale())
@@ -25,9 +26,9 @@ const WithTranslate = ({children, ...restProps}) => {
 
   const contextData = useMemo(() => ({locale, locales: actualLocales}), [actualLocales])
 
-  const onChangeLocale = useCallback(({locale}) => {
+  const onChangeLocale = useCallback(/** @type {(...args: any[]) => void} */ (({locale}) => {
     setLocale(locale)
-  }, [])
+  }), [])
 
   useEventEmitter(events, "onLocaleChange", onChangeLocale)
 
