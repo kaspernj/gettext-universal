@@ -16,6 +16,7 @@
     "gettext-universal": "node bin/gettext-universal.js",
     "po2js": "node bin/po2js.js",
     "prepublishOnly": "npm run build",
+    "release:patch": "node scripts/release-patch.js",
     "test": "jasmine",
     "typecheck": "tsc --noEmit",
     "watch": "tsc -w"
