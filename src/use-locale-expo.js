@@ -44,6 +44,29 @@ export default function useLocaleExpo() {
 
   const primaryLocale = contextLocale || deviceLocales[0]
 
+  // Re-render whenever any code calls `config.setLocale(...)` — e.g. a
+  // settings picker that swaps the active locale from another screen.
+  //
+  // Must subscribe BEFORE the primary/fallbacks `useEffect`s below —
+  // those call `config.setLocale(...)` which emits `onLocaleChange`, and
+  // without a live listener the first-mount sync of a stale `config`
+  // would be silently missed, leaving the component rendering stale
+  // translations from `translate(...)` until an unrelated re-render.
+  const [, setTick] = useState(0)
+
+  useEffect(() => {
+    /** @returns {void} */
+    const onLocaleChange = () => {
+      setTick((tick) => tick + 1)
+    }
+
+    events.on("onLocaleChange", onLocaleChange)
+
+    return () => {
+      events.off("onLocaleChange", onLocaleChange)
+    }
+  }, [])
+
   /** @type {React.MutableRefObject<string | null>} */
   const lastWrittenPrimaryRef = useRef(null)
 
@@ -68,21 +91,4 @@ export default function useLocaleExpo() {
     lastWrittenFallbacksRef.current = deviceLocales
     config.setFallbacks(deviceLocales)
   }, [deviceLocales])
-
-  // Re-render whenever any code calls `config.setLocale(...)` — e.g. a
-  // settings picker that swaps the active locale from another screen.
-  const [, setTick] = useState(0)
-
-  useEffect(() => {
-    /** @returns {void} */
-    const onLocaleChange = () => {
-      setTick((tick) => tick + 1)
-    }
-
-    events.on("onLocaleChange", onLocaleChange)
-
-    return () => {
-      events.off("onLocaleChange", onLocaleChange)
-    }
-  }, [])
 }
