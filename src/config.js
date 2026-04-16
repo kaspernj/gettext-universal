@@ -25,7 +25,20 @@ class Config {
   }
 
   getFallbacks() { return this.fallbacks }
-  getLocale() { return this.locale }
+
+  /**
+   * Returns the active locale. If `setLocale` was called with a
+   * function (a resolver), the resolver is invoked here so callers
+   * always receive a string — this lets apps plumb a per-request
+   * locale through AsyncLocalStorage (or similar) transparently.
+   *
+   * @returns {string | undefined}
+   */
+  getLocale() {
+    if (typeof this.locale === "function") return this.locale()
+    return this.locale
+  }
+
   getLocales() { return this.locales }
 
   /**
@@ -37,12 +50,18 @@ class Config {
   }
 
   /**
-   * @param {string} locale
+   * Sets the active locale. Accepts a string (global/static locale)
+   * OR a function that returns the current locale on each call
+   * (useful for per-request locale backed by AsyncLocalStorage).
+   *
+   * @param {string | (() => string | undefined)} locale
    * @returns {void}
    */
   setLocale(locale) {
     this.locale = locale
-    events.emit("onLocaleChange", {locale})
+    const resolvedLocale = typeof locale === "function" ? undefined : locale
+
+    events.emit("onLocaleChange", {locale: resolvedLocale})
   }
 }
 
