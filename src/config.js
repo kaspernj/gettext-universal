@@ -59,9 +59,13 @@ class Config {
    */
   setLocale(locale) {
     this.locale = locale
-    const resolvedLocale = typeof locale === "function" ? undefined : locale
 
-    events.emit("onLocaleChange", {locale: resolvedLocale})
+    // Only emit for static locales. Function resolvers return a
+    // per-request locale dynamically — emitting undefined would
+    // mislead listeners into thinking the locale was cleared.
+    if (typeof locale !== "function") {
+      events.emit("onLocaleChange", {locale})
+    }
   }
 }
 
