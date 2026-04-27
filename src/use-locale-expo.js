@@ -24,10 +24,16 @@ import TranslateContext from "./translate-context.js"
  * via refs, so a settings picker that calls `setLocale` stays in effect
  * across re-renders.
  *
- * Returns `void`. For the callable-translator pattern, keep using
- * `useTranslate()` / `useTranslateExpo()` — both hooks remain available.
+ * Returns the currently active locale string from `config.getLocale()`
+ * (or `undefined` when no locale has been set yet) so callers can pass
+ * it as a `useEffect` dependency. The hook's own `setTick` subscription
+ * to `onLocaleChange` makes the return value reactive — including
+ * imperative `config.setLocale(...)` calls from a settings picker that
+ * does not also push through `TranslateContext`. For the callable-
+ * translator pattern, keep using `useTranslate()` / `useTranslateExpo()`
+ * — both hooks remain available.
  *
- * @returns {void}
+ * @returns {string | undefined}
  */
 export default function useLocaleExpo() {
   const localeContext = useContext(TranslateContext)
@@ -91,4 +97,12 @@ export default function useLocaleExpo() {
     lastWrittenFallbacksRef.current = deviceLocales
     config.setFallbacks(deviceLocales)
   }, [deviceLocales])
+
+  // Read the authoritative locale from `config` (rather than returning the
+  // derived `primaryLocale`) so an imperative `config.setLocale("de")` from a
+  // settings picker — which emits `onLocaleChange` and re-renders this hook
+  // via `setTick` above — surfaces in the return value too. Returning
+  // `primaryLocale` would miss those overrides whenever the host app does not
+  // also push the new locale through `TranslateContext`.
+  return config.getLocale()
 }
