@@ -24,10 +24,13 @@ import TranslateContext from "./translate-context.js"
  * via refs, so a settings picker that calls `setLocale` stays in effect
  * across re-renders.
  *
- * Returns `void`. For the callable-translator pattern, keep using
- * `useTranslate()` / `useTranslateExpo()` — both hooks remain available.
+ * Returns the active primary locale string (or `undefined` when no
+ * primary/device locale is known yet) so callers can pass it as a
+ * `useEffect` dependency without reaching for `config.getLocale()`. For
+ * the callable-translator pattern, keep using `useTranslate()` /
+ * `useTranslateExpo()` — both hooks remain available.
  *
- * @returns {void}
+ * @returns {string | undefined}
  */
 export default function useLocaleExpo() {
   const localeContext = useContext(TranslateContext)
@@ -91,4 +94,6 @@ export default function useLocaleExpo() {
     lastWrittenFallbacksRef.current = deviceLocales
     config.setFallbacks(deviceLocales)
   }, [deviceLocales])
+
+  return primaryLocale
 }
