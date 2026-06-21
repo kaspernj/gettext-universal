@@ -43,7 +43,7 @@
     "ya-use-event-emitter": "^0.1.2"
   },
   "devDependencies": {
-    "@types/node": "^25.5.2",
+    "@types/node": "^26.0.0",
     "@types/react": "^19.2.14",
     "jasmine": "^6.0.0",
     "release-patch": "^1.0.0",
